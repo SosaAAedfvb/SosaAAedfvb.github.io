@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html lang="es" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explorador Interactivo de Termodinámica</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<2><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700&amp;display=swap" rel="stylesheet">
+<style>
+body {
+font-family: 'Roboto Slab', serif;
+background-color: #F8F4F0;
+color: #334155;
+}
+.chart-container {
+position: relative;
+width: 100%;
+max-width: 600px;
+margin-left: auto;
+margin-right: auto;
+height: 300px;
+max-height: 40vh;
+}
+@media (min-width: 768px) {
+.chart-container {
+height: 350px;
+}
+}
+</style>
+</head>
+<body class="antialiased">
+
+<main>
+    <section id="hero" class="h-screen w-full flex flex-col justify-center items-center text-center p-8 bg-slate-700 text-white">
+        <h1 class="text-4xl md:text-7xl font-bold mb-4">Termodinámica</h1>
+        <p class="text-xl md:text-3xl font-light max-w-4xl">"La energía no se crea ni se destruye, solo se transforma."</p>
+        <div class="mt-12 animate-bounce">
+            <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+        </div>
+    </section>
+    
+    <section id="leyes" class="min-h-screen w-full py-20 px-8 flex flex-col justify-center items-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Los Pilares de la Termodinámica</h2>
+        <p class="text-lg text-center max-w-3xl mb-12">Esta disciplina se rige por leyes fundamentales que describen el comportamiento de la energía y el desorden. Explore cada una para entender cómo funciona nuestro universo.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
+            <a href="#ley-cero" class="nav-card block p-8 bg-white rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-2 transition-transform duration-300 text-center">
+                <h3 class="text-2xl font-bold text-slate-700 mb-2">Ley Cero</h3>
+                <p class="text-slate-500">La base del equilibrio y la temperatura.</p>
+            </a>
+            <a href="#ley-primera" class="nav-card block p-8 bg-white rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-2 transition-transform duration-300 text-center">
+                <h3 class="text-2xl font-bold text-slate-700 mb-2">Primera Ley</h3>
+                <p class="text-slate-500">La conservación de la energía.</p>
+            </a>
+            <a href="#ley-segunda" class="nav-card block p-8 bg-white rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-2 transition-transform duration-300 text-center">
+                <h3 class="text-2xl font-bold text-slate-700 mb-2">Segunda Ley</h3>
+                <p class="text-slate-500">La flecha del tiempo y el desorden.</p>
+            </a>
+        </div>
+    </section>
+    
+    <section id="ley-cero" class="min-h-screen w-full py-20 px-8 bg-slate-100 flex flex-col justify-center items-center">
+        <div class="max-w-4xl text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Ley Cero: La Regla del Equilibrio</h2>
+            <p class="text-lg mb-8">Esta ley establece que si dos sistemas están por separado en equilibrio térmico con un tercer sistema, entonces también deben estar en equilibrio térmico entre sí. Esto significa que los tres comparten la misma temperatura, un concepto fundamental para poder medirla. Interactúe con el diagrama para ver esta relación.</p>
+        </div>
+        <div class="w-full max-w-2xl mt-8">
+            <div class="relative flex justify-around items-center h-64">
+                <div id="sistema-a" class="sistema w-32 h-32 bg-blue-300 flex justify-center items-center text-2xl font-bold text-white rounded-lg border-4 border-blue-400 cursor-pointer transition-transform duration-300">A</div>
+                <div id="sistema-b" class="sistema w-32 h-32 bg-red-300 flex justify-center items-center text-2xl font-bold text-white rounded-lg border-4 border-red-400 cursor-pointer transition-transform duration-300">B</div>
+                <div id="sistema-c" class="sistema w-32 h-32 bg-green-300 flex justify-center items-center text-2xl font-bold text-white rounded-lg border-4 border-green-400 cursor-pointer transition-transform duration-300">C</div>
+                <div id="linea-ac" class="absolute top-1/2 left-1/4 w-1/4 h-1 bg-gray-400" style="transform: translateY(-50%) rotate(45deg); transform-origin: left;"></div>
+                <div id="linea-bc" class="absolute top-1/2 right-1/4 w-1/4 h-1 bg-gray-400" style="transform: translateY(-50%) rotate(-45deg); transform-origin: right;"></div>
+            </div>
+            <div id="info-ley-cero" class="mt-8 p-4 bg-white rounded-lg shadow-inner text-center h-24 flex items-center justify-center">
+                <p class="text-slate-600">Pase el cursor sobre un sistema para aprender más.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="ley-primera" class="min-h-screen w-full py-20 px-8 flex flex-col justify-center items-center">
+        <div class="max-w-4xl text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Primera Ley: El Balance Energético</h2>
+            <p class="text-lg mb-2">También conocida como la ley de la conservación de la energía, postula que la energía total del universo es constante. La energía interna de un sistema cambia al agregar calor o realizar trabajo. La fórmula es:</p>
+            <p class="text-2xl font-mono p-4 bg-slate-100 rounded-md inline-block my-4">ΔU = q - w</p>
+            <p class="text-lg">Pruebe el simulador para ver cómo el calor (q) y el trabajo (w) afectan la energía interna (ΔU) de un sistema.</p>
+        </div>
+        <div class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+            <div class="p-6 bg-white rounded-lg shadow-lg">
+                <h3 class="text-xl font-bold text-center mb-4">Simulador de Sistema</h3>
+                <div class="w-full h-32 bg-orange-100 rounded-md flex justify-center items-center mb-4 transition-colors duration-500" id="sistema-visual">
+                    <span class="text-2xl font-bold text-orange-800" id="energia-interna-display">ΔU = 0 J</span>
+                </div>
+                <div class="flex justify-around">
+                    <button id="add-heat" class="px-4 py-2 bg-red-500 text-white font-bold rounded-lg hover:bg-red-600 transition-colors">+ Calor (q)</button>
+                    <button id="add-work" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 transition-colors">- Trabajo (w)</button>
+                </div>
+                 <button id="reset-system" class="w-full mt-4 px-4 py-2 bg-gray-400 text-white font-bold rounded-lg hover:bg-gray-500 transition-colors">Reiniciar</button>
+            </div>
+            <div class="p-6 bg-white rounded-lg shadow-lg">
+                <h3 class="text-xl font-bold text-center mb-4">Ejemplo: Reacción Exotérmica</h3>
+                <div class="chart-container">
+                    <canvas id="primeraLeyChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ley-segunda" class="min-h-screen w-full py-20 px-8 bg-slate-100 flex flex-col justify-center items-center">
+        <div class="max-w-4xl text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Segunda Ley: La Tendencia al Desorden</h2>
+            <p class="text-lg mb-8">Esta ley introduce la entropía (S), una medida del desorden o aleatoriedad de un sistema. Afirma que la entropía del universo siempre aumenta en un proceso espontáneo. Esto dicta la "flecha del tiempo" y explica por qué los procesos ocurren en una dirección y no en la opuesta. Observe cómo aumenta el desorden en la simulación.</p>
+        </div>
+        <div class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 items-center">
+            <div class="p-6 bg-white rounded-lg shadow-lg">
+                <h3 class="text-xl font-bold text-center mb-4">Simulación de Entropía</h3>
+                <canvas id="entropiaCanvas" class="w-full bg-slate-200 rounded-md" height="300"></canvas>
+                <button id="start-entropy" class="w-full mt-4 px-4 py-2 bg-teal-500 text-white font-bold rounded-lg hover:bg-teal-600 transition-colors">Iniciar Proceso</button>
+            </div>
+            <div class="p-6 bg-white rounded-lg shadow-lg">
+                 <h3 class="text-xl font-bold text-center mb-4">Entropía del Universo</h3>
+                <div class="chart-container">
+                    <canvas id="segundaLeyChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="w-full bg-slate-700 text-white text-center p-8">
+        <h2 class="text-3xl font-bold mb-4">Una Comprensión Unificada</h2>
+        <p class="max-w-4xl mx-auto">En conjunto, estas leyes ofrecen un marco conceptual para entender las transformaciones energéticas que nos rodean y la tendencia inherente del universo hacia un mayor desorden. Su estudio es indispensable para la química, la física y la ingeniería, revelando la intrincada relación entre energía, calor, trabajo y la espontaneidad de los fenómenos naturales.</p>
+    </footer>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const sistemas = document.querySelectorAll('.sistema');
+        const infoBox = document.getElementById('info-ley-cero');
+        const infoText = {
+            'sistema-a': 'El Sistema A está en equilibrio térmico con el Sistema C.',
+            'sistema-b': 'El Sistema B también está en equilibrio térmico con el Sistema C.',
+            'sistema-c': 'El Sistema C actúa como referencia. Al estar en equilibrio con A y B, demuestra que A y B deben estar en equilibrio entre sí.',
+            'default': 'Pase el cursor sobre un sistema para aprender más.'
+        };
+
+        sistemas.forEach(sistema => {
+            sistema.addEventListener('mouseenter', () => {
+                infoBox.querySelector('p').textContent = infoText[sistema.id];
+                sistema.classList.add('scale-110');
+            });
+            sistema.addEventListener('mouseleave', () => {
+                infoBox.querySelector('p').textContent = infoText['default'];
+                sistema.classList.remove('scale-110');
+            });
+        });
+
+        let internalEnergy = 0;
+        const energiaDisplay = document.getElementById('energia-interna-display');
+        const sistemaVisual = document.getElementById('sistema-visual');
+        const baseColor = 100;
+
+        function updateEnergyDisplay() {
+            energiaDisplay.textContent = `ΔU = ${internalEnergy} J`;
+            const newColorIntensity = Math.max(100, Math.min(400, baseColor + internalEnergy * 2));
+            sistemaVisual.style.backgroundColor = `rgb(254, ${249 - internalEnergy}, ${231 - internalEnergy*2})`;
+        }
+
+        document.getElementById('add-heat').addEventListener('click', () => {
+            internalEnergy += 10;
+            updateEnergyDisplay();
+        });
+        document.getElementById('add-work').addEventListener('click', () => {
+            internalEnergy -= 10;
+            updateEnergyDisplay();
+        });
+         document.getElementById('reset-system').addEventListener('click', () => {
+            internalEnergy = 0;
+            updateEnergyDisplay();
+        });
+
+        const ctx1 = document.getElementById('primeraLeyChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['Reactivos', 'Productos'],
+                datasets: [{
+                    label: 'Nivel de Energía (kJ)',
+                    data: [100, 40],
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.5)',
+                        'rgba(239, 68, 68, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(59, 130, 246, 1)',
+                        'rgba(239, 68, 68, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: 'Energía liberada como calor' }
+                },
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+
+        const canvas = document.getElementById('entropiaCanvas');
+        const ctx2 = canvas.getContext('2d');
+        let particles = [];
+        const numParticles = 50;
+        let animationFrameId;
+
+        function initParticles() {
+            particles = [];
+            const particleSize = 5;
+            const initialAreaWidth = canvas.width / 5;
+            for (let i = 0; i < numParticles; i++) {
+                particles.push({
+                    x: Math.random() * initialAreaWidth,
+                    y: Math.random() * canvas.height,
+                    vx: 0,
+                    vy: 0,
+                    radius: particleSize,
+                    color: `hsl(${Math.random() * 60 + 180}, 70%, 50%)`
+                });
+            }
+        }
+
+        function drawParticles() {
+            ctx2.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx2.beginPath();
+                ctx2.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx2.fillStyle = p.color;
+                ctx2.fill();
+            });
+        }
+
+        function updateParticles() {
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x + p.radius > canvas.width || p.x - p.radius < 0) p.vx *= -1;
+                if (p.y + p.radius > canvas.height || p.y - p.radius < 0) p.vy *= -1;
+            });
+        }
+
+        function animate() {
+            updateParticles();
+            drawParticles();
+            animationFrameId = requestAnimationFrame(animate);
+        }
+        
+        initParticles();
+        drawParticles();
+
+        const ctx3 = document.getElementById('segundaLeyChart').getContext('2d');
+        const segundaLeyChart = new Chart(ctx3, {
+            type: 'doughnut',
+            data: {
+                labels: ['Orden', 'Desorden (Entropía)'],
+                datasets: [{
+                    data: [100, 0],
+                    backgroundColor: ['rgba(75, 192, 192, 0.5)', 'rgba(255, 99, 132, 0.5)'],
+                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                 plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Aumento del desorden universal' }
+                }
+            }
+        });
+
+        document.getElementById('start-entropy').addEventListener('click', () => {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+            particles.forEach(p => {
+                p.vx = (Math.random() - 0.5) * 4;
+                p.vy = (Math.random() - 0.5) * 4;
+            });
+            animate();
+
+            segundaLeyChart.data.datasets[0].data = [20, 80];
+            segundaLeyChart.update();
+        });
+
+    });
+</script>
+</body>
+</html>
